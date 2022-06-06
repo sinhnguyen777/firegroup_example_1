@@ -1,3 +1,6 @@
+@import './_mixin';
+
+// ----------- COMPONENTS -----------
 
 .section {
     &__1 {
@@ -7,8 +10,21 @@
     &__2 {
         padding: 96px 0 96px 0;
         height: fit-content;
-        background: linear-gradient(131.1deg, rgba(54, 133, 251, 0.05) 0%, rgba(54, 133, 251, 0.03) 73.29%);
+        position: relative;
+        // background: linear-gradient(131.1deg, rgba(54, 133, 251, 0.05) 0%, rgba(54, 133, 251, 0.03) 73.29%);
         // transform: matrix(-1, 0, 0, 1, 0, 0);
+
+        &::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(131.1deg, rgba(54, 133, 251, 0.05) 0%, rgba(54, 133, 251, 0.03) 73.29%);
+            transform: matrix(-1, 0, 0, 1, 0, 0);
+            z-index: -2;
+        }
     }
 
     &__3 {
@@ -41,7 +57,10 @@
     }
 
     &__link {
+        position: relative;
+        display: inline-block;
         text-decoration: none;
+        transition: all 0.3s;
         font-size: $font-size-content;
         font-weight: $font-weight-content;
         font-style: $font-style;
@@ -55,7 +74,7 @@
             &::before {
                 content: "";
                 position: absolute;
-                width: 12px;
+                width: 0px;
                 height: 2px;
                 bottom: 0;
                 left: 1px;
@@ -63,17 +82,34 @@
                 border-radius: 1px;
             }
         }
+
+        &::before {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 0px;
+            height: 2px;
+            bottom: 0;
+            left: 1px;
+            background-color: #3685FB;
+            border-radius: 1px;
+            transition: width 0.3s;
+        }
+
+        &:hover {
+            color: $color-primary;
+
+            &::before {
+                width: 12px;
+            }
+        }
+
     }
 }
 
 .btn {
     cursor: pointer;
-    // &:hover {
-    //     border: 1px solid $color-primary;
-    //     background-color: $color-white;
-    //     color: $color-primary;
-    //     transition: all 0.4s;
-    // }
+
 
     &-search {
         width: 18px;
@@ -118,6 +154,8 @@
         font-family: $font-family-content;
         font-style: $font-style;
         font-size: $font-size-content;
+
+        @include Hover();
     }
 
     &__arrows {
